@@ -4,12 +4,17 @@ import Login from '../../Pages/Login/Login';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import Register from '../../Pages/Register/Register';
 import { FaDeleteLeft } from "react-icons/fa6";
+import { useContext } from 'react';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const Navbar = () => {
+  const {user,handleLogOut}=useContext(AuthContext)
+  console.log(user);
+
     const links= <>
                <li >  <Link  to='/'>Home</Link> </li>
              
-               <li>  <Link to='/home'>Dashboard</Link> </li>
+               <li>  <Link to='/dashboard'>Dashboard</Link> </li>
                <li>  <Link to='/home'>Contact</Link> </li>
                <li>  <Link to='/home'>Properties</Link> </li>
    
@@ -17,11 +22,11 @@ const Navbar = () => {
     </>
     const rightLinks= <>
      <li>  <Link to='/home'>Home</Link> </li>
-     <li> <button onClick={()=>document.getElementById('my_modal_5').showModal()}>Register</button> </li>
+  
+     {
+      user?.success? <li> <button onClick={()=>handleLogOut()}>logOut</button> </li>: <li> <button onClick={()=>document.getElementById('my_modal_5').showModal()}>Register</button> </li>
+     }
 
-   <li>
-
-   </li>
       
     </>
     return (
@@ -55,24 +60,37 @@ const Navbar = () => {
           {
             rightLinks
           }
-             <div className="avatar">
-  <div className="w-12 rounded-full">
-    <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
-  </div>
-</div>
+          {/* profile image */}
+          <div className="dropdown dropdown-end text-black">
+      <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+        <div className="w-10 rounded-full">
+          <img alt="Tailwind CSS Navbar component" src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+        </div>
+      </div>
+      <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+        <li>
+          <a className="justify-between">
+            Profile
+            <span className="badge">New</span>
+          </a>
+        </li>
+        <li><a>Settings</a></li>
+        <li><a>Logout</a></li>
+      </ul>
+    </div>
+
+
+{/* profile image end */}
           </ul>
           
         </div>
       
 
-        <div className="navbar-end">
-          <a className="btn">Button</a>
-        </div>
 
         {/* modal */}
 
         {/* Open the modal using document.getElementById('ID').showModal() method */}
-<button className="btn" >open modal</button>
+
 <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle ">
   <div className="modal-box ">
     <h3 className="font-bold text-lg text-black mb-7">Welcome to Hose <span className='text-[#FF385C]'>Hunter</span></h3>

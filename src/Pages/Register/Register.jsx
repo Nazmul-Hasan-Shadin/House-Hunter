@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
 const Register = () => {
     const [role,setRole]=useState('')
@@ -12,15 +13,23 @@ const Register = () => {
         const name= form.get('name')
         const password= form.get('password')
         const email= form.get('email')
+        const phone= form.get('phone')
         const userInfo={
             name,
             email,
             password,
-            role
+            role,
+            phone
         }
       const postUserInfo=  await  axiosPublic.post('/registerUser',userInfo)
-      console.log(postUserInfo);
-      
+         console.log(postUserInfo);
+         if (postUserInfo.data.success === true) {
+            toast.success('Register Successful');
+          } else {
+            // Handle cases where the server responds with an unsuccessful status
+            console.error('Registration failed:', postUserInfo.data.message);
+            toast.error('Registration failed. Please try again.');
+          }
  
         
    }
@@ -53,8 +62,9 @@ const Register = () => {
             <span className="label-text">Phone Number</span>
           </label>
           <input
-            name="number"
+            name="phone"
             type="number"
+             
             placeholder="email"
             className="input input-bordered"
             required
