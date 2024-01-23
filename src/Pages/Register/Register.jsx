@@ -1,7 +1,32 @@
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+
 const Register = () => {
+    const [role,setRole]=useState('')
+    const axiosPublic= useAxiosPublic()
+
+    const handleSubmitForm=async(e)=>{
+        e.preventDefault()
+        const form= new FormData(e.currentTarget)
+        const name= form.get('name')
+        const password= form.get('password')
+        const email= form.get('email')
+        const userInfo={
+            name,
+            email,
+            password,
+            role
+        }
+      const postUserInfo=  await  axiosPublic.post('/registerUser',userInfo)
+      console.log(postUserInfo);
+      
+ 
+        
+   }
   return (
     <div className="  ">
-      <form className="card-body space-y-6 p-0">
+      <form onSubmit={handleSubmitForm} className="card-body  text-black space-y-6 p-0">
         <div className="form-control">
           <label className="label">
             <span className="label-text">Full Name</span>
@@ -15,7 +40,7 @@ const Register = () => {
           />
         </div>
 
-        <select className="select select-bordered text-black w-full max-w-xs">
+        <select onChange={(e)=>setRole(e.target.value)} className="select select-bordered text-black w-full max-w-xs">
           <option disabled selected>
             Role
           </option>

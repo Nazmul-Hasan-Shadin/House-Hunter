@@ -8,7 +8,7 @@ import { FaDeleteLeft } from "react-icons/fa6";
 const Navbar = () => {
     const links= <>
                <li >  <Link  to='/'>Home</Link> </li>
-               <li> <button onClick={()=>document.getElementById('my_modal_5').showModal()}>open</button> </li>
+             
                <li>  <Link to='/home'>Dashboard</Link> </li>
                <li>  <Link to='/home'>Contact</Link> </li>
                <li>  <Link to='/home'>Properties</Link> </li>
@@ -17,6 +17,7 @@ const Navbar = () => {
     </>
     const rightLinks= <>
      <li>  <Link to='/home'>Home</Link> </li>
+     <li> <button onClick={()=>document.getElementById('my_modal_5').showModal()}>Register</button> </li>
 
    <li>
 
