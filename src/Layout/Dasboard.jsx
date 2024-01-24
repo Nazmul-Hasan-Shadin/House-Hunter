@@ -20,6 +20,7 @@ import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Dashboard = () => {
   const [data,isLoading] = useRoleCheck();
+
  const[renter,setRenter]=useState(true)
   console.log(data)
 
@@ -65,7 +66,7 @@ const Dashboard = () => {
               {/* =======================a==================Manager routes================================== */}
 
            {/* avatar */}
-              {renter && (
+              {data?.data?.owner && (
                 <>
                                   <li>
                     {" "}
@@ -90,9 +91,9 @@ const Dashboard = () => {
 
                   <li>
                     {" "}
-                    <Link to={"/dashboard/all-product"}>
+                    <Link to={"/dashboard/properties"}>
                       <CiViewTable />
-                      All Proucts{" "}
+                      My Properties{" "}
                     </Link>{" "}
                   </li>
 

@@ -4,10 +4,11 @@ import useAxiosPublic from './useAxiosPublic';
 import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const useRoleCheck = () => {
-  const {user}=useContext(AuthContext)
+  const {user,loading}=useContext(AuthContext)
     const axiosPublic=useAxiosPublic()
-     const {data ,isLoading}=useQuery({
+     const {data={} ,isLoading}=useQuery({
       queryKey: ['rolechecker'],
+      enabled :!loading,
       queryFn: async()=>{
         try {
            const isOwner= await axiosPublic.get(`/role-checker/${user?.email}`)
